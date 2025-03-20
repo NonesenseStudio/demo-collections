@@ -1,30 +1,44 @@
+<template>
+  <a-config-provider class="configProvider" :locale="zhCN" >
+    <router-view v-if="Layout" v-slot="{ Component, route: curRoute }">
+      <component :is="Layout">
+        <KeepAlive :include="[]">
+          <component :is="Component" :key="curRoute.fullPath"></component>
+        </KeepAlive>
+      </component>
+    </router-view>
+  </a-config-provider>
+</template>
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+import { computed, defineAsyncComponent, markRaw } from 'vue'
+import { useRoute } from 'vue-router'
+
+dayjs.locale('zh-cn')
+
+const layouts = new Map()
+
+function getLayout(name: string) {
+  if (layouts.get(name)) return layouts.get(name)
+  const layout = markRaw(defineAsyncComponent(() => import(`@/components/layouts/${name}/index.vue`)))
+  layouts.set(name, layout)
+  return layout
+}
+
+const route = useRoute()
+
+const Layout = computed(() => {
+  if (!route.matched?.length) return null
+  return getLayout((route.meta?.layout as string))
+})
 </script>
 
-<template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style scoped lang="less">
+.configProvider {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

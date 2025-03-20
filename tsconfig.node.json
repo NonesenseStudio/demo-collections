@@ -1,11 +1,28 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "skipLibCheck": true,
+    /* 基础配置 */
+    "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "strict": true
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Node 环境支持 */
+    "lib": ["ES2020", "DOM"],
+    "types": ["node"],
+
+    /* 构建输出控制 */
+    "noEmit": true,
+    "composite": false,
+    "incremental": false
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.*", "scripts/**/*.ts", "**/*.config.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*" // 明确排除前端代码
+  ]
 }
