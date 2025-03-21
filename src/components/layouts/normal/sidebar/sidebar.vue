@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="py-20 wh-full flex-col items-center">
     <div class="h-30 w-auto text-center rounded-4 cursor-pointer">
       <img src="@/assets/ff-logo.png" class="h-30 w-30" alt="" />
@@ -23,4 +23,4 @@ import { MessageOutlined, HistoryOutlined } from '@ant-design/icons-vue'
 import { siderRoutes } from '@/router/sider-bar.ts'
 
 const route = useRoute()
-</script>
+</script> -->

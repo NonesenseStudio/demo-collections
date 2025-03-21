@@ -13,7 +13,6 @@ declare module 'vue' {
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     Empty: typeof import('./src/components/layouts/empty/index.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Normal: typeof import('./src/components/layouts/normal/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
