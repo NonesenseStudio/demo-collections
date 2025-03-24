@@ -8,12 +8,13 @@
         theme="light"
         v-model:collapsed="collapsed"
         :zeroWidthTriggerStyle="zeroWidthTriggerStyle"
+        @collapse="onCollapse"
       >
         <template #trigger>
           <LeftOutlined v-if="!collapsed" />
           <RightOutlined v-else />
         </template>
-        <!-- <sider-bar></sider-bar> -->
+        <sider-bar></sider-bar>
       </a-layout-sider>
       <a-layout-content :style="contentStyle">
         <slot></slot>
@@ -45,8 +46,9 @@
 
 <script setup lang="ts">
 import { LeftOutlined, RightOutlined } from "@ant-design/icons-vue";
-import { Modal } from "ant-design-vue";
+import SiderBar from "./sidebar/sidebar.vue";
 import Disclaimer from "@/components/layouts/normal/disclaimer.vue";
+import { type CSSProperties } from "vue";
 
 const collapsed = ref<boolean>(false);
 const showDisclaimer = ref<boolean>(false);
@@ -59,9 +61,20 @@ const contentStyle = {
 const zeroWidthTriggerStyle = {
   top: 0,
 };
-const footerStyle = {
+const footerStyle = ref<CSSProperties>({
   textAlign: "center",
   padding: "1px 10px",
+  height: "auto",
+});
+
+const onCollapse = (collapsed: boolean) => {
+  if (collapsed) {
+    footerStyle.value.padding = "0";
+    footerStyle.value.height = 0;
+  } else {
+    footerStyle.value.padding = "1px 10px";
+    footerStyle.value.height = "auto";
+  }
 };
 </script>
 
@@ -78,6 +91,9 @@ const footerStyle = {
   .ant-layout-content {
     padding: 0;
     overflow: auto;
+  }
+  .ant-layout-footer {
+    transition: all 1s;
   }
 }
 </style>

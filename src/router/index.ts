@@ -6,20 +6,20 @@ import {
 import { useElementStore } from "@/store/useElementStore.ts";
 import { App } from "vue";
 import { element } from "./element";
-const routes: RouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/views/index/index.vue"),
+    component: () => import("@/views/overview/overview.vue"),
     meta: {
       title: "总览",
-      layout: "empty",
+      layout: "normal",
     },
   },
   {
     path: "/ant",
     name: "Ant",
-    component: () => import("@/views/ant/index.vue"),
+    component: () => import("@/views/index.vue"),
     meta: {
       title: "Ant Design Vue",
       layout: "normal",
@@ -44,7 +44,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/element",
     name: "Element",
-    component: () => import("@/views/element/index.vue"),
+    component: () => import("@/views/index.vue"),
     meta: {
       title: "Element Plus",
       layout: "normal",
@@ -66,6 +66,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: "",
           childrenLayout: "empty",
+          show: false,
         },
       },
       ...element,

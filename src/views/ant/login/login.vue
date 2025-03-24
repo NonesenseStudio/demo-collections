@@ -1,32 +1,24 @@
 <template>
-  <a-layout class="login-container">
-    <a-layout-content class="login-content">
-      <a-card class="login-card">
-        <h2>登录</h2>
-        <a-form :form="form" layout="vertical" @submit.prevent="handleSubmit">
-          <a-form-item
-            label="用户名"
-            :rules="[{ required: true, message: '请输入用户名!' }]"
-          >
-            <a-input v-model="username" placeholder="请输入用户名" />
-          </a-form-item>
-          <a-form-item
-            label="密码"
-            :rules="[{ required: true, message: '请输入密码!' }]"
-          >
-            <a-input
-              v-model="password"
-              type="password"
-              placeholder="请输入密码"
-            />
-          </a-form-item>
-          <a-form-item>
-            <a-button type="primary" htmlType="submit" block> 登录 </a-button>
-          </a-form-item>
-        </a-form>
-      </a-card>
-    </a-layout-content>
-  </a-layout>
+  <a-card class="login-card">
+    <h2>登录</h2>
+    <a-form :form="form" layout="vertical" @submit.prevent="handleSubmit">
+      <a-form-item
+        label="用户名"
+        :rules="[{ required: true, message: '请输入用户名!' }]"
+      >
+        <a-input v-model="username" placeholder="请输入用户名" />
+      </a-form-item>
+      <a-form-item
+        label="密码"
+        :rules="[{ required: true, message: '请输入密码!' }]"
+      >
+        <a-input v-model="password" type="password" placeholder="请输入密码" />
+      </a-form-item>
+      <a-form-item>
+        <a-button type="primary" htmlType="submit" block> 登录 </a-button>
+      </a-form-item>
+    </a-form>
+  </a-card>
 </template>
 
 <script setup>
