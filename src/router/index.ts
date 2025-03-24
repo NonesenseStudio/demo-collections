@@ -30,15 +30,15 @@ const routes: RouteRecordRaw[] = [
       //   name: "AntHome",
       //   component: () => import("@/views/ant/dashboard/dashboard.vue"),
       // },
-      {
-        path: "login",
-        name: "AntLogin",
-        component: () => import("@/views/ant/login/login.vue"),
-        meta: {
-          title: "",
-          childrenLayout: "empty",
-        },
-      },
+      // {
+      //   path: "login",
+      //   name: "AntLogin",
+      //   component: () => import("@/views/ant/login/login.vue"),
+      //   meta: {
+      //     title: "",
+      //     childrenLayout: "empty",
+      //   },
+      // },
     ],
   },
   {
