@@ -5,6 +5,6 @@ import { setupRouter } from "./router";
 import { setupStore } from "./store";
 
 const app = createApp(App);
-await setupRouter(app);
+setupRouter(app).then();
 setupStore(app);
 app.mount("#app");
