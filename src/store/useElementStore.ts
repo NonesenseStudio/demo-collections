@@ -8,5 +8,8 @@ export const useElementStore = defineStore("element", {
     setLogin(login: boolean) {
       this.isLogin = login;
     },
+    logout() {
+      this.isLogin = false;
+    },
   },
 });

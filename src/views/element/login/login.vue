@@ -1,21 +1,42 @@
 <template>
   <div class="login-page">
     <el-card class="login-card">
-      <h2>Login</h2>
+      <h2>账号登录</h2>
       <el-form
-        ref="loginForm"
+        ref="formEl"
+        style="max-width: 600px"
         :model="loginForm"
+        status-icon
         :rules="rules"
-        label-width="120px"
+        label-width="auto"
+        class="demo-ruleForm"
       >
-        <el-form-item label="Username" prop="username">
-          <el-input v-model="loginForm.username"></el-input>
+        <el-form-item prop="username">
+          <el-input
+            v-model="loginForm.username"
+            autocomplete="off"
+            placeholder="用户名"
+            size="large"
+          />
         </el-form-item>
-        <el-form-item label="Password" prop="password">
-          <el-input type="password" v-model="loginForm.password"></el-input>
+        <el-form-item prop="password">
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            autocomplete="off"
+            placeholder="密码"
+            size="large"
+          />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleLogin">Login</el-button>
+          <el-button
+            type="primary"
+            @click="handleLogin"
+            style="width: 100%"
+            size="large"
+          >
+            登录
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -24,29 +45,32 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { ElMessage } from "element-plus";
+import { ElMessage as Message } from "element-plus";
+import { useElementStore } from "@/store/useElementStore.ts";
 
+const router = useRouter();
+const element = useElementStore();
+const formEl = ref();
 const loginForm = ref({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "12345",
 });
 
 const rules = ref({
-  username: [
-    { required: true, message: "Please input your username", trigger: "blur" },
-  ],
-  password: [
-    { required: true, message: "Please input your password", trigger: "blur" },
-  ],
+  username: [{ required: true, message: "请输入用户名！", trigger: "blur" }],
+  password: [{ required: true, message: "请输入密码！", trigger: "blur" }],
 });
 
 const handleLogin = () => {
-  // Perform login logic here
-  // For example, you can send a request to your backend API
-  // and handle the response accordingly
-
-  // For now, we'll just show a success message
-  ElMessage.success("Logged in successfully");
+  if (!formEl.value) return;
+  formEl.value.validate((valid: any) => {
+    if (valid) {
+      element.setLogin(true);
+      router.push("dashboard");
+    } else {
+      Message.error("请输入用户名和密码！");
+    }
+  });
 };
 </script>
 
@@ -55,7 +79,7 @@ const handleLogin = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background-color: #f5f7fa;
 }
 
