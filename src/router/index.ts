@@ -3,9 +3,11 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import { useElementStore } from "@/store/useElementStore.ts";
+import { useElementStore, useAntStore } from "@/store";
 import { App } from "vue";
 import { element } from "./element";
+import { ant } from "./ant";
+
 export const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -19,31 +21,38 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/ant",
     name: "Ant",
+    redirect: "/ant/dashboard",
     component: () => import("@/views/index.vue"),
     meta: {
       title: "Ant Design Vue",
       layout: "normal",
     },
     children: [
-      // {
-      //   path: "",
-      //   name: "AntHome",
-      //   component: () => import("@/views/ant/dashboard/dashboard.vue"),
-      // },
-      // {
-      //   path: "login",
-      //   name: "AntLogin",
-      //   component: () => import("@/views/ant/login/login.vue"),
-      //   meta: {
-      //     title: "",
-      //     childrenLayout: "empty",
-      //   },
-      // },
+      {
+        path: "",
+        name: "AntHome",
+        component: () => import("@/views/ant/dashboard/dashboard.vue"),
+        meta: {
+          title: "",
+          childrenLayout: "ant",
+        },
+      },
+      {
+        path: "login",
+        name: "AntLogin",
+        component: () => import("@/views/ant/login/login.vue"),
+        meta: {
+          title: "",
+          childrenLayout: "empty",
+        },
+      },
+      ...ant,
     ],
   },
   {
     path: "/element",
     name: "Element",
+    redirect: "/element/dashboard",
     component: () => import("@/views/index.vue"),
     meta: {
       title: "Element Plus",
@@ -82,12 +91,20 @@ export async function setupRouter(app: App): Promise<void> {
   app.use(router);
   router.beforeEach((to) => {
     const element = useElementStore();
+    const ant = useAntStore();
     if (
       !element.isLogin &&
       to.path.startsWith("/element") &&
       to.path !== "/element/login"
     ) {
       return { path: "/element/login" };
+    }
+    if (
+      !ant.isLogin &&
+      to.path.startsWith("/ant") &&
+      to.path !== "/ant/login"
+    ) {
+      return { path: "/ant/login" };
     }
   });
 }

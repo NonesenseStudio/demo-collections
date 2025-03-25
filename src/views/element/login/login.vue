@@ -86,5 +86,6 @@ const handleLogin = () => {
 .login-card {
   width: 400px;
   padding: 20px;
+  border-radius: 10px;
 }
 </style>

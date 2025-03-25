@@ -1,44 +1,63 @@
 <template>
-  <a-card class="login-card">
-    <h2>登录</h2>
-    <a-form :form="form" layout="vertical" @submit.prevent="handleSubmit">
-      <a-form-item
-        label="用户名"
-        :rules="[{ required: true, message: '请输入用户名!' }]"
-      >
-        <a-input v-model="username" placeholder="请输入用户名" />
-      </a-form-item>
-      <a-form-item
-        label="密码"
-        :rules="[{ required: true, message: '请输入密码!' }]"
-      >
-        <a-input v-model="password" type="password" placeholder="请输入密码" />
-      </a-form-item>
-      <a-form-item>
-        <a-button type="primary" htmlType="submit" block> 登录 </a-button>
-      </a-form-item>
-    </a-form>
-  </a-card>
+  <div class="login-container">
+    <a-card class="login-card" hoverable>
+      <h2>登录</h2>
+      <a-form :model="form" layout="vertical" @finish="onFinish" ref="formRef">
+        <a-form-item
+          name="username"
+          :rules="[{ required: true, message: '请输入用户名！' }]"
+        >
+          <a-input v-model:value="form.username">
+            <template #prefix>
+              <UserOutlined class="site-form-item-icon" />
+            </template>
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+          name="password"
+          :rules="[{ required: true, message: '请输入密码！' }]"
+        >
+          <a-input-password v-model:value="form.password">
+            <template #prefix>
+              <LockOutlined class="site-form-item-icon" />
+            </template>
+          </a-input-password>
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" htmlType="submit" block size="large">
+            登录
+          </a-button>
+        </a-form-item>
+      </a-form>
+    </a-card>
+  </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
+import { useAntStore } from "@/store";
 
-const form = ref(null);
-const username = ref("");
-const password = ref("");
-
-const handleSubmit = () => {
-  // 在这里处理登录逻辑
+const form = ref({
+  username: "admin",
+  password: "123456",
+});
+const formRef = ref();
+const router = useRouter();
+const ant = useAntStore();
+const onFinish = () => {
+  router.push("dashboard");
+  ant.setLogin(true);
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #f0f2f5;
 }
 
@@ -48,6 +67,8 @@ const handleSubmit = () => {
 }
 
 .login-card {
+  width: 100%;
+  max-width: 400px;
   padding: 24px;
 }
 </style>

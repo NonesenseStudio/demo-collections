@@ -20,7 +20,7 @@ export default defineConfig(({ command }) => {
       }),
       Components({
         dts: true,
-        dirs: ["src/components"],
+        dirs: ["src/common"],
         resolvers: [
           ElementPlusResolver(),
           AntDesignVueResolver({
@@ -29,6 +29,15 @@ export default defineConfig(({ command }) => {
         ],
       }),
     ],
+    server: {
+      proxy: {
+        "/zjapi": {
+          target: "https://data.zjzwfw.gov.cn/jdop_front/interfaces",
+          changeOrigin: true,
+          pathRewrite: { '^/zjapi': '' }
+        },
+      },
+    },
     resolve: {
       alias: {
         "@": resolve(__dirname, "src"),

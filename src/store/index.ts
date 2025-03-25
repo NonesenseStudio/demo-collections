@@ -5,4 +5,6 @@ export function setupStore(app: App) {
   const pinia = createPinia()
   app.use(pinia)
 }
+export * from "./useElementStore.ts"
+export * from "./useAntStore.ts"
 
