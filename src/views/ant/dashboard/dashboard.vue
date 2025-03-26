@@ -1,7 +1,11 @@
 <template>
   <div class="ant-dashboard">
-    <a-row>
-      <a-col :span="12" v-for="item in totalData" :key="item.name">
+    <a-row :gutter="[16, 16]">
+      <a-col
+        :span="24 / totalData.length"
+        v-for="item in totalData"
+        :key="item.name"
+      >
         <a-card>
           <div class="ant-dashboard-total">
             <div class="total-icon">
@@ -20,6 +24,8 @@
 <script setup lang="ts">
 import IAntEconomy from "~icons/ant/economy";
 import IAntPopulation from "~icons/ant/Population";
+import IAntTransport from "~icons/ant/transport";
+import IAntBudget from "~icons/ant/budget";
 
 const totalData = [
   {
@@ -35,16 +41,16 @@ const totalData = [
     icon: IAntPopulation,
   },
   {
-    name: "税收收入",
-    value: 21860,
-    unit: "亿元",
-    icon: "tax",
+    name: "全年客运量",
+    value: 1.8,
+    unit: "亿人次",
+    icon: IAntTransport,
   },
   {
     name: "一般公共预算收入",
-    value: 21860,
+    value: 2640,
     unit: "亿元",
-    icon: "budget",
+    icon: IAntBudget,
   },
 ];
 </script>
