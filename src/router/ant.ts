@@ -1,5 +1,9 @@
 import { type RouteRecordRaw } from "vue-router";
-import { HomeOutlined, UserOutlined } from "@ant-design/icons-vue";
+import {
+  HomeOutlined,
+  UserOutlined,
+  DollarOutlined,
+} from "@ant-design/icons-vue";
 export const ant: RouteRecordRaw[] = [
   {
     path: "dashboard",
@@ -10,6 +14,26 @@ export const ant: RouteRecordRaw[] = [
       icon: h(HomeOutlined),
       childrenLayout: "ant",
     },
+  },
+  {
+    path: "economy",
+    name: "AntEconomy",
+    meta: {
+      title: "经济",
+      icon: h(DollarOutlined),
+      childrenLayout: "ant",
+    },
+    children:[
+      {
+        path: "gdp",
+        name: "AntEconomyGdp",
+        component: () => import("@/views/ant/economy/gdp.vue"),
+        meta: {
+          title: "地区生产总值",
+          childrenLayout: "ant",
+        }
+      }
+    ]
   },
   {
     path: "population",
@@ -23,7 +47,7 @@ export const ant: RouteRecordRaw[] = [
       {
         path: "census",
         name: "AntPopulationCensus",
-        component: () => import("@/views/ant/population/census/census.vue"),
+        component: () => import("@/views/ant/population/census.vue"),
         meta: {
           title: "历年普查常住人口情况",
           childrenLayout: "ant",

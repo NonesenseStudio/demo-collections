@@ -90,7 +90,7 @@ const handleMenuClick = ({ key }: any) => {
     color: #fff;
   }
 
-  ::v-deep .ant-layout-sider-trigger {
+  :deep(.ant-layout-sider-trigger) {
     position: unset;
   }
 }
