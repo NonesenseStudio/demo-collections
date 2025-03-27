@@ -14,8 +14,8 @@ export const routes: RouteRecordRaw[] = [
     name: "Home",
     component: () => import("@/views/overview/overview.vue"),
     meta: {
-      title: "总览",
-      layout: "normal",
+      title: "◀返回首页",
+      layout: "empty",
     },
   },
   {

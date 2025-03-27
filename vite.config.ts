@@ -33,7 +33,6 @@ export default defineConfig(({ command }) => {
       }),
       Components({
         dts: true,
-        dirs: ["src/common"],
         resolvers: [
           ElementPlusResolver(),
           AntDesignVueResolver({
