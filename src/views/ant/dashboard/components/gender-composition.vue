@@ -22,8 +22,7 @@ onMounted(() => {
       },
     },
     legend: {
-      orient: "vertical",
-      left: "left",
+      show: false,
     },
     series: [
       {

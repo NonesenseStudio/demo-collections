@@ -22,8 +22,7 @@ onMounted(() => {
       },
     },
     legend: {
-      orient: "vertical",
-      left: "left",
+      show: false,
     },
     series: [
       {
@@ -36,7 +35,7 @@ onMounted(() => {
           { value: 258.2, name: "60岁以上" },
         ],
         label: {
-          formatter: "{b}: {d}",
+          formatter: "{b}: {d}%",
         },
         emphasis: {
           itemStyle: {
