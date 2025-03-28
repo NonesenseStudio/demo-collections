@@ -80,8 +80,9 @@
 import UrbanRural from "./components/urban-rural.vue";
 import GenderComposition from "@/views/ant/dashboard/components/gender-composition.vue";
 import AgeComposition from "@/views/ant/dashboard/components/age-composition.vue";
+import {CSSProperties} from "vue";
 
-const cardBodyStyle = {
+const cardBodyStyle: CSSProperties = {
   height: "100%",
   display: "flex",
   flexDirection: "column",
