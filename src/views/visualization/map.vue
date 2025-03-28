@@ -78,7 +78,6 @@ onMounted(() => {
           // map.setMask(...feature.geometry.coordinates);
         });
         map.add(polygon);
-        console.log(feature.properties);
         let text = new AMap.Text({
           position: new AMap.LngLat(...feature.properties.center),
           anchor: "bottom-center",
