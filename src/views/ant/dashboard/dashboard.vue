@@ -80,7 +80,7 @@
 import UrbanRural from "./components/urban-rural.vue";
 import GenderComposition from "@/views/ant/dashboard/components/gender-composition.vue";
 import AgeComposition from "@/views/ant/dashboard/components/age-composition.vue";
-import {CSSProperties} from "vue";
+import { CSSProperties } from "vue";
 
 const cardBodyStyle: CSSProperties = {
   height: "100%",
@@ -120,6 +120,7 @@ const cardBodyStyle: CSSProperties = {
         font-size: 24px;
         color: #1890ff;
         font-weight: bold;
+        font-family: FangYuan, sans-serif;
       }
 
       .total-unit {

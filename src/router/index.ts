@@ -81,6 +81,15 @@ export const routes: RouteRecordRaw[] = [
       ...element,
     ],
   },
+  {
+    path: "/visualization",
+    name: "Visualization",
+    component: () => import("@/views/visualization/index.vue"),
+    meta: {
+      title: "可视化大屏",
+      layout: "normal",
+    },
+  },
 ];
 
 const router = createRouter({
