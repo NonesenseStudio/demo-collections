@@ -5,11 +5,25 @@
 <script setup lang="ts">
 import AMapLoader from "@amap/amap-jsapi-loader";
 import { onMounted } from "vue";
-import coordinates from "./Hangzhou.json";
+import coordinates from "./components/Hangzhou.json";
 import * as turf from "@turf/turf";
 
 let map: any = null;
-console.log(turf.getCoords(coordinates.features[1]));
+const colors = [
+  "#d92626",
+  "#d97926",
+  "#d9cb26",
+  "#94d926",
+  "#42d926",
+  "#26d95d",
+  "#26d9b0",
+  "#26b0d9",
+  "#265dd9",
+  "#4226d9",
+  "#9426d9",
+  "#d926cb",
+  "#d92679",
+];
 const mask = coordinates.features.map(({ geometry }) =>
   geometry.coordinates.flat(),
 );
@@ -34,8 +48,45 @@ onMounted(() => {
         showLabel: false,
         features: ["bg", "point"],
       });
-      const geoJson = new AMap.GeoJSON();
-      console.log(geoJson);
+      coordinates.features.forEach((feature, index) => {
+        const polygon = new AMap.Polygon({
+          path: feature.geometry.coordinates,
+          fillColor: colors[index],
+          strokeOpacity: 1,
+          fillOpacity: 0.5,
+          strokeColor: "#FFF",
+          strokeWeight: 1,
+          strokeStyle: "dashed",
+          strokeDasharray: [5, 5],
+        });
+        polygon.on("mouseover", () => {
+          polygon.setOptions({
+            fillOpacity: 0.7,
+            fillColor: "#7bccc4",
+            cursor: "pointer",
+          });
+          // document.body.style.cursor = "pointer";
+        });
+        polygon.on("mouseout", () => {
+          polygon.setOptions({
+            fillOpacity: 0.5,
+            fillColor: colors[index],
+            cursor: "default",
+          });
+        });
+        polygon.on("click", () => {
+          // map.setMask(...feature.geometry.coordinates);
+        });
+        map.add(polygon);
+        console.log(feature.properties);
+        let text = new AMap.Text({
+          position: new AMap.LngLat(...feature.properties.center),
+          anchor: "bottom-center",
+          text: feature.properties.name,
+          style: { "background-color": "#e53935" },
+        });
+        map.add(text);
+      });
     })
     .catch((e) => {
       console.log(e);
