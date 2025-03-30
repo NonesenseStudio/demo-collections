@@ -2,7 +2,7 @@
   <div class="ant-dashboard">
     <a-row :gutter="16">
       <a-col :span="8">
-        <a-card>
+        <a-card :bodyStyle="cardBodyStyle">
           <div style="display: flex; justify-content: space-evenly">
             <div class="ant-dashboard-total">
               <div class="total-icon">
@@ -24,6 +24,11 @@
                 <div class="total-unit">元</div>
               </div>
             </div>
+          </div>
+          <div class="ant-dashboard-charts">
+            <area-gdp></area-gdp>
+            <agricultural-output />
+            <resident-income />
           </div>
         </a-card>
       </a-col>
@@ -52,7 +57,7 @@
             </div>
             <div class="ant-dashboard-total">
               <div class="total-icon">
-                <IAntPopulation style="width: 60px; height: 60px" />
+                <IAntDeath style="width: 60px; height: 60px" />
               </div>
               <div class="total-item">
                 <div class="total-name">死亡率</div>
@@ -69,7 +74,7 @@
         </a-card>
       </a-col>
       <a-col :span="8">
-        <a-card>
+        <a-card :bodyStyle="cardBodyStyle">
           <div style="display: flex; justify-content: space-evenly">
             <div class="ant-dashboard-total">
               <div class="total-icon">
@@ -92,6 +97,10 @@
               </div>
             </div>
           </div>
+          <div class="ant-dashboard-charts">
+            <area-transport></area-transport>
+            <vehicle-ownership />
+          </div>
         </a-card>
       </a-col>
     </a-row>
@@ -103,6 +112,11 @@ import UrbanRural from "./components/urban-rural.vue";
 import GenderComposition from "@/views/ant/dashboard/components/gender-composition.vue";
 import AgeComposition from "@/views/ant/dashboard/components/age-composition.vue";
 import { CSSProperties } from "vue";
+import AreaGdp from "@/views/ant/dashboard/components/area-gdp.vue";
+import AreaTransport from "@/views/ant/dashboard/components/area-transport.vue";
+import AgriculturalOutput from "@/views/ant/dashboard/components/agricultural-output.vue";
+import VehicleOwnership from "@/views/ant/dashboard/components/vehicle-ownership.vue";
+import ResidentIncome from "@/views/ant/dashboard/components/resident-income.vue";
 
 const cardBodyStyle: CSSProperties = {
   height: "100%",

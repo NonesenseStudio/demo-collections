@@ -53,6 +53,7 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Empty: typeof import('./src/components/layouts/empty/index.vue')['default']
     IAntBirth: typeof import('~icons/ant/birth')['default']
+    IAntDeath: typeof import('~icons/ant/death')['default']
     IAntEconomy: typeof import('~icons/ant/economy')['default']
     IAntFreight: typeof import('~icons/ant/freight')['default']
     IAntIncome: typeof import('~icons/ant/income')['default']

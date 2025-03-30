@@ -49,6 +49,11 @@ const onFinish = () => {
   router.push("dashboard");
   ant.setLogin(true);
 };
+onMounted(() => {
+  if (ant.isLogin) {
+    router.push("dashboard");
+  }
+});
 </script>
 
 <style scoped lang="less">
