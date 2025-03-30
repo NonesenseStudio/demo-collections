@@ -82,7 +82,7 @@ onMounted(() => {
           position: new AMap.LngLat(...feature.properties.center),
           anchor: "bottom-center",
           text: feature.properties.name,
-          style: { "background-color": "#e53935" },
+          style: { "background-color": "#e53935", color: "#fff" },
         });
         map.add(text);
       });

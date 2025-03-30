@@ -40,7 +40,7 @@ export default defineConfig(({ command }) => {
           }),
           IconsResolver({
             prefix: "i",
-            customCollections: ["ant", "custom"],
+            enabledCollections: ["ant", "custom"],
           }),
         ],
       }),

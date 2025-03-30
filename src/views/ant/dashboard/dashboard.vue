@@ -29,14 +29,36 @@
       </a-col>
       <a-col :span="8">
         <a-card :bodyStyle="cardBodyStyle">
-          <div class="ant-dashboard-total">
-            <div class="total-icon">
-              <IAntPopulation style="width: 60px; height: 60px" />
+          <div style="display: flex; justify-content: space-evenly">
+            <div class="ant-dashboard-total">
+              <div class="total-icon">
+                <IAntPopulation style="width: 60px; height: 60px" />
+              </div>
+              <div class="total-item">
+                <div class="total-name">全市常住人口</div>
+                <div class="total-value">1264.2</div>
+                <div class="total-unit">万人</div>
+              </div>
             </div>
-            <div class="total-item">
-              <div class="total-name">全市常住人口</div>
-              <div class="total-value">1264.2</div>
-              <div class="total-unit">万人</div>
+            <div class="ant-dashboard-total">
+              <div class="total-icon">
+                <IAntBirth style="width: 60px; height: 60px" />
+              </div>
+              <div class="total-item">
+                <div class="total-name">出生率</div>
+                <div class="total-value">7.5</div>
+                <div class="total-unit">‰</div>
+              </div>
+            </div>
+            <div class="ant-dashboard-total">
+              <div class="total-icon">
+                <IAntPopulation style="width: 60px; height: 60px" />
+              </div>
+              <div class="total-item">
+                <div class="total-name">死亡率</div>
+                <div class="total-value">5.2</div>
+                <div class="total-unit">‰</div>
+              </div>
             </div>
           </div>
           <div class="ant-dashboard-charts">
@@ -85,7 +107,7 @@ import { CSSProperties } from "vue";
 const cardBodyStyle: CSSProperties = {
   height: "100%",
   display: "flex",
-  flexDirection: "column",
+  "flex-direction": "column",
 };
 </script>
 
