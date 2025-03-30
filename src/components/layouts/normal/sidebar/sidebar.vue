@@ -13,16 +13,17 @@ import { MessageOutlined, HistoryOutlined } from "@ant-design/icons-vue";
 import { routes } from "@/router/index.ts";
 import { computed } from "vue";
 import { type RouteRecordRaw } from "vue-router";
+import { ItemType } from "ant-design-vue";
 
 const selectedKeys = ref(["Home"]);
 const route = useRoute();
 const router = useRouter();
 const menuItems = computed(() => {
-  return routes.map((item: RouteRecordRaw) => {
+  return routes.map((item: any) => {
     return {
       key: item.name,
-      icon: item.meta.icon || "",
-      label: item.meta.title,
+      icon: item.meta!.icon || "",
+      label: item?.meta!.title,
       path: item.path,
     };
   });
@@ -31,6 +32,6 @@ const onMenuClick = (r: any) => {
   router.push({ name: r.key });
 };
 onMounted(() => {
-  selectedKeys.value = [route.matched[0].name];
+  selectedKeys.value = [route.matched[0].name as string];
 });
 </script>

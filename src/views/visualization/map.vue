@@ -29,6 +29,7 @@ const mask = coordinates.features.map(({ geometry }) =>
 );
 const districts = ref([]);
 onMounted(() => {
+  // @ts-ignore
   window._AMapSecurityConfig = {
     securityJsCode: "418b2961bdff880584afef94646b8a25",
   };
