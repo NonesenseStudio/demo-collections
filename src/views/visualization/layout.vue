@@ -1,25 +1,45 @@
 <template>
   <div class="layout">
-    <div class="map">
-      <a-map></a-map>
+    <div class="layout-top">
+      <div class="layout-top-left">
+        <weather v-if="showWeather"></weather>
+      </div>
+      <div class="layout-top-middle">{{ map.currentArea }}可视化数据</div>
+      <div class="layout-top-right">{{ currentTime }}</div>
     </div>
-    <div>
+    <div class="layout-left">
       <slot name="left"></slot>
     </div>
-    <div>
+    <div class="layout-right">
       <slot name="right"></slot>
     </div>
-    <div>
-      <slot name="bottom"></slot>
-    </div>
-    <div>
-      <slot name="top"></slot>
+    <div class="map">
+      <a-map @init="onMapRendered"></a-map>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import AMap from "./map.vue";
+import dayjs from "dayjs";
+import Weather from "./components/weather.vue";
+import { useMapStore } from "@/store";
+
+let timer = null;
+let currentTime = ref<string>(dayjs().format("YYYY-MM-DD HH:mm:ss"));
+const showWeather = ref<boolean>(false);
+const map = useMapStore();
+onMounted(() => {
+  timer = setInterval(() => {
+    currentTime.value = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  }, 1000);
+});
+const onMapRendered = (AMap) => {
+  showWeather.value = true;
+};
+onBeforeUnmount(() => {
+  clearInterval(timer);
+});
 </script>
 
 <style scoped lang="less">
@@ -27,12 +47,62 @@ import AMap from "./map.vue";
   width: 100%;
   height: 100%;
   position: relative;
-  background: #000;
+  display: flex;
+  flex-wrap: wrap;
+  color: #fff;
+  justify-content: space-between;
+  overflow: hidden;
+  z-index: 0;
+
   .map {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: -1;
+  }
+
+  &-top {
+    width: 100%;
+    height: 100px;
+    background: url("./images/top.png") no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-left {
+      min-width: 200px;
+      height: 100%;
+    }
+
+    &-middle {
+      font-size: 40px;
+      font-weight: 700;
+      color: #fff;
+      font-family: FangYuan, sans-serif;
+    }
+
+    &-right {
+      min-width: 200px;
+      height: 100%;
+      line-height: 50px;
+      font-size: 20px;
+      font-family: FangYuan, sans-serif;
+    }
+  }
+
+  &-left {
+    width: 400px;
+    height: 100%;
+    background: url("./images/left.png") no-repeat;
+    background-size: 100% 100%;
+  }
+
+  &-right {
+    width: 400px;
+    height: 100%;
+    background: url("./images/right.png") no-repeat;
+    background-size: 100% 100%;
   }
 }
 </style>

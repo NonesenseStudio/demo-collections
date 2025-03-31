@@ -24,7 +24,7 @@
         collapsible
         width="230"
       >
-        <sider-bar></sider-bar>
+        <ant-sidebar></ant-sidebar>
       </a-layout-sider>
       <a-layout-content :style="contentStyle">
         <slot></slot>
@@ -38,7 +38,7 @@ import { createVNode, type CSSProperties } from "vue";
 import { ExclamationCircleOutlined, UserOutlined } from "@ant-design/icons-vue";
 import { Modal, message as Message } from "ant-design-vue";
 import { useAntStore } from "@/store";
-import SiderBar from "@/components/layouts/ant/siderbar/sidebar.vue";
+import AntSidebar from "@/components/layouts/ant/siderbar/ant-sidebar.vue";
 
 const ant = useAntStore();
 const router = useRouter();

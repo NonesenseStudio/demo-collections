@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="250px">
-      <sidebar></sidebar>
+      <el-sidebar></el-sidebar>
     </el-aside>
     <el-container>
       <el-header>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import Sidebar from "@/components/layouts/element/sidebar/sidebar.vue";
+import ElSidebar from "@/components/layouts/element/sidebar/el-sidebar.vue";
 import { SwitchButton } from "@element-plus/icons-vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import { useElementStore } from "@/store/useElementStore";

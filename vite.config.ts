@@ -24,7 +24,9 @@ export default defineConfig(({ command }) => {
       Icons({
         compiler: "vue3",
         customCollections: {
-          custom: FileSystemIconLoader("./src/assets/icons"),
+          custom: FileSystemIconLoader("./src/assets/icons", (svg) =>
+            svg.replace(/^<svg /, '<svg fill="currentColor" '),
+          ),
           ant: FileSystemIconLoader("src/assets/ant-icons", (svg) =>
             svg.replace(/^<svg /, '<svg fill="currentColor" '),
           ),
