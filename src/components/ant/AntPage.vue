@@ -63,6 +63,15 @@ onMounted(() => {
   &-header {
     height: 60px;
     background-color: #fff;
+    display: flex;
+
+    &-unit {
+      height: 60px;
+      line-height: 60px;
+
+      font-size: 14px;
+      color: #999;
+    }
   }
 
   &-content {

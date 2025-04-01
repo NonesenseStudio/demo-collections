@@ -1,5 +1,5 @@
 <template>
-  <Page :columns="columns" :data-source="data"></Page>
+  <Page :columns="columns" :data-source="data" unit="万人"></Page>
 </template>
 
 <script setup lang="ts">
