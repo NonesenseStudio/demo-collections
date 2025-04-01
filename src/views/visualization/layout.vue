@@ -4,7 +4,7 @@
       <div class="layout-top-left">
         <weather v-if="showWeather"></weather>
       </div>
-      <div class="layout-top-middle">{{ map.currentArea }}可视化数据</div>
+      <div class="layout-top-middle">{{ map.currentArea }}统计数据</div>
       <div class="layout-top-right">{{ currentTime }}</div>
     </div>
     <div class="layout-left">
@@ -93,16 +93,18 @@ onBeforeUnmount(() => {
 
   &-left {
     width: 400px;
-    height: 100%;
+    height: calc(100% - 100px);
     background: url("./images/left.png") no-repeat;
     background-size: 100% 100%;
+    padding-top: 18px;
   }
 
   &-right {
     width: 400px;
-    height: 100%;
+    height: calc(100% - 100px);
     background: url("./images/right.png") no-repeat;
     background-size: 100% 100%;
+    padding-top: 18px;
   }
 }
 </style>

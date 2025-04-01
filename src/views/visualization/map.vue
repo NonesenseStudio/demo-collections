@@ -77,12 +77,6 @@ const setPolygon = (AMap: any) => {
         cursor: "default",
       });
     });
-    polygon.on("click", (e) => {
-      mapStore.setCurrentArea(feature.properties.name);
-      showBackButton.value = true;
-      map.setMask(...feature.geometry.coordinates);
-      map.setFitView();
-    });
     map.add(polygon);
     let text = new AMap.Text({
       position: new AMap.LngLat(...feature.properties.center),
@@ -93,7 +87,6 @@ const setPolygon = (AMap: any) => {
     map.add(text);
     return { polygon, text };
   });
-  console.log(districts.value);
 };
 onMounted(() => {
   // @ts-ignore
@@ -107,6 +100,7 @@ onMounted(() => {
   })
     .then((AMap) => {
       emits("init", AMap);
+      mapStore.setAMap(AMap);
       map = new AMap.Map("aMap", {
         mask: mask,
         // 设置地图容器id
