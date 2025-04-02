@@ -114,7 +114,7 @@ onMounted(() => {
       setPolygon(AMap);
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
     });
 });
 

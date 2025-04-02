@@ -36,6 +36,17 @@ export const routes: RouteRecordRaw[] = [
           title: "",
           childrenLayout: "ant",
         },
+        children: [
+          {
+            path: "404",
+            name: "Ant404",
+            component: () => import("@/views/error/404.vue"),
+            meta: {
+              title: "404",
+              layout: "ant",
+            },
+          },
+        ],
       },
       {
         path: "login",
@@ -78,6 +89,15 @@ export const routes: RouteRecordRaw[] = [
           show: false,
         },
       },
+      {
+        path: "404",
+        name: "Element404",
+        component: () => import("@/views/error/404.vue"),
+        meta: {
+          title: "404",
+          childrenLayout: "element",
+        },
+      },
       ...element,
     ],
   },
@@ -101,6 +121,9 @@ export async function setupRouter(app: App): Promise<void> {
   router.beforeEach((to) => {
     const element = useElementStore();
     const ant = useAntStore();
+    if (!to.name) {
+      return { path: "404" };
+    }
     if (
       !element.isLogin &&
       to.path.startsWith("/element") &&
