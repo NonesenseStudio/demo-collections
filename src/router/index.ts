@@ -9,17 +9,17 @@ import { element } from "./element";
 import { ant } from "./ant";
 
 export const routes: RouteRecordRaw[] = [
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: () => import("@/views/overview/overview.vue"),
+  //   meta: {
+  //     title: "◀返回首页",
+  //     layout: "empty",
+  //   },
+  // },
   {
     path: "/",
-    name: "Home",
-    component: () => import("@/views/overview/overview.vue"),
-    meta: {
-      title: "◀返回首页",
-      layout: "empty",
-    },
-  },
-  {
-    path: "/ant",
     name: "Ant",
     redirect: "/ant/dashboard",
     component: () => import("@/views/index.vue"),
