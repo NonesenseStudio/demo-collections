@@ -49,7 +49,7 @@ const handleCommand = () => {
         message: "登出成功！",
       });
       element.logout();
-      router.push("login");
+      router.push("/login");
     })
     .catch(() => {});
 };

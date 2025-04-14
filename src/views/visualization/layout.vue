@@ -4,7 +4,9 @@
       <div class="layout-top-left">
         <weather v-if="showWeather"></weather>
       </div>
-      <div class="layout-top-middle">{{ map.currentArea }}统计数据</div>
+      <div class="layout-top-middle" @click="router.push('/dashboard')">
+        {{ map.currentArea }}统计数据
+      </div>
       <div class="layout-top-right">{{ currentTime }}</div>
     </div>
     <div class="layout-left">
@@ -25,6 +27,7 @@ import dayjs from "dayjs";
 import Weather from "./components/weather.vue";
 import { useMapStore } from "@/store";
 
+const router = useRouter();
 let timer = null;
 let currentTime = ref<string>(dayjs().format("YYYY-MM-DD HH:mm:ss"));
 const showWeather = ref<boolean>(false);
@@ -80,6 +83,7 @@ onBeforeUnmount(() => {
       font-weight: 700;
       color: #fff;
       font-family: FangYuan, sans-serif;
+      cursor: pointer;
     }
 
     &-right {

@@ -6,9 +6,9 @@
     text-color="#fff"
     router
   >
-    <div class="headline">杭州市统计数据</div>
+    <div class="headline" @click="router.push('/overview')">杭州市统计数据</div>
     <template v-for="route in element">
-      <el-sub-menu :index="`/element/${route.path}`" v-if="route.children">
+      <el-sub-menu :index="`/${route.path}`" v-if="route.children">
         <template #title>
           <el-icon>
             <component :is="route.meta.icon"></component>
@@ -16,13 +16,13 @@
           <span>{{ route.meta.title }}</span>
         </template>
         <el-menu-item
-          :index="`/element/${route.path}/${child.path}`"
+          :index="`/${route.path}/${child.path}`"
           v-for="child in route.children"
         >
           {{ child.meta.title }}
         </el-menu-item>
       </el-sub-menu>
-      <el-menu-item :index="`/element/${route.path}`" v-else>
+      <el-menu-item :index="`/${route.path}`" v-else>
         <el-icon>
           <component :is="route.meta.icon"></component>
         </el-icon>
@@ -35,6 +35,7 @@
 import { element } from "@/router/element";
 
 const route = useRoute();
+const router = useRouter();
 </script>
 
 <style scoped lang="less">
@@ -49,6 +50,7 @@ const route = useRoute();
     color: #fff;
     font-size: 20px;
     font-weight: 600;
+    cursor: pointer;
   }
 }
 </style>

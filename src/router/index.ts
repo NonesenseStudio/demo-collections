@@ -112,9 +112,60 @@ export const routes: RouteRecordRaw[] = [
   },
 ];
 
+export const routes1: RouteRecordRaw[] = [
+  {
+    path: "/overview",
+    name: "ElementVisualization",
+    component: () => import("@/views/visualization/index.vue"),
+    meta: {
+      title: "可视化大屏",
+      layout: "empty",
+    },
+  },
+  {
+    path: "/",
+    name: "Element",
+    component: () => import("@/views/index.vue"),
+    meta: {
+      title: "Element Plus",
+      layout: "empty",
+    },
+    children: [
+      {
+        path: "",
+        name: "ElementHome",
+        component: () => import("@/views/element/dashboard/dashboard.vue"),
+        meta: {
+          title: "",
+          childrenLayout: "element",
+        },
+      },
+      {
+        path: "login",
+        name: "ElementLogin",
+        component: () => import("@/views/element/login/login.vue"),
+        meta: {
+          title: "",
+          childrenLayout: "empty",
+          show: false,
+        },
+      },
+      {
+        path: "404",
+        name: "Element404",
+        component: () => import("@/views/error/404.vue"),
+        meta: {
+          title: "404",
+          childrenLayout: "element",
+        },
+      },
+      ...element,
+    ],
+  },
+];
 const router = createRouter({
   history: createWebHistory("/"),
-  routes: routes,
+  routes: routes1,
 });
 export async function setupRouter(app: App): Promise<void> {
   app.use(router);
@@ -124,19 +175,19 @@ export async function setupRouter(app: App): Promise<void> {
     if (!to.name) {
       return { path: "404" };
     }
-    if (
-      !element.isLogin &&
-      to.path.startsWith("/element") &&
-      to.path !== "/element/login"
-    ) {
-      return { path: "/element/login" };
+    if (to.path === "/") {
+      return { path: "/overview" };
     }
-    if (
-      !ant.isLogin &&
-      to.path.startsWith("/ant") &&
-      to.path !== "/ant/login"
-    ) {
-      return { path: "/ant/login" };
+    if (!element.isLogin && to.path !== "/login" && to.path !== "/overview") {
+      return { path: "/login" };
     }
+
+    // if (
+    //   !ant.isLogin &&
+    //   to.path.startsWith("/ant") &&
+    //   to.path !== "/ant/login"
+    // ) {
+    //   return { path: "/ant/login" };
+    // }
   });
 }
