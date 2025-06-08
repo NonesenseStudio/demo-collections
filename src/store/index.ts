@@ -8,3 +8,4 @@ export function setupStore(app: App) {
 export * from "./useElementStore.ts";
 export * from "./useAntStore.ts";
 export * from "./useMapStore.ts";
+export * from "./useChatStore.ts";

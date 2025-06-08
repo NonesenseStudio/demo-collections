@@ -110,6 +110,15 @@ export const routes: RouteRecordRaw[] = [
       layout: "normal",
     },
   },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: () => import("@/views/chat/index.vue"),
+    meta: {
+      title: "AI对话",
+      layout: "normal",
+    },
+  },
 ];
 
 export const routes1: RouteRecordRaw[] = [
@@ -165,7 +174,7 @@ export const routes1: RouteRecordRaw[] = [
 ];
 const router = createRouter({
   history: createWebHistory("/"),
-  routes: routes1,
+  routes: routes,
 });
 export async function setupRouter(app: App): Promise<void> {
   app.use(router);
@@ -175,19 +184,25 @@ export async function setupRouter(app: App): Promise<void> {
     if (!to.name) {
       return { path: "404" };
     }
-    if (to.path === "/") {
-      return { path: "/overview" };
-    }
-    if (!element.isLogin && to.path !== "/login" && to.path !== "/overview") {
-      return { path: "/login" };
-    }
-
-    // if (
-    //   !ant.isLogin &&
-    //   to.path.startsWith("/ant") &&
-    //   to.path !== "/ant/login"
-    // ) {
-    //   return { path: "/ant/login" };
+    // if (to.path === "/") {
+    //   return { path: "/overview" };
     // }
+    // if (!element.isLogin && to.path !== "/login" && to.path !== "/overview") {
+    //   return { path: "/login" };
+    // }
+    if (
+      !element.isLogin &&
+      to.path.startsWith("/element") &&
+      to.path !== "/element/login"
+    ) {
+      return { path: "/element/login" };
+    }
+    if (
+      !ant.isLogin &&
+      to.path.startsWith("/ant") &&
+      to.path !== "/ant/login"
+    ) {
+      return { path: "/ant/login" };
+    }
   });
 }
