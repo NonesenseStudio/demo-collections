@@ -54,6 +54,11 @@ export default defineConfig(({ command }) => {
           changeOrigin: true,
           pathRewrite: { "^/zjapi": "" },
         },
+        "/ai": {
+          target: "https://chat.zju.edu.cn/api/",
+          changeOrigin: true,
+          pathRewrite: { "^/ai": "" },
+        }
       },
     },
     resolve: {

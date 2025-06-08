@@ -1,16 +1,27 @@
 import { createI18n } from "vue-i18n";
 import { useChatStore } from "@/store";
 
+const currentLanguage = navigator.language;
 export const i18n = createI18n({
   legacy: false,
-  locale: "zh",
+  locale: currentLanguage,
   fallbackLocale: "en",
   messages: {
     en: {
       hello: "Hello world",
+      chat: {
+        language: "Language",
+        modalTitle: "System Settings",
+        placeholder: "Message DeepSeek",
+      },
     },
     zh: {
       hello: "你好，世界",
+      chat: {
+        language: "语言",
+        modalTitle: "系统设置",
+        placeholder: "给 DeepSeek 发送消息"
+      },
     },
     zh_TW: {
       hello: "哈囉，世界",
