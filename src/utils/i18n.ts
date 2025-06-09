@@ -1,5 +1,4 @@
 import { createI18n } from "vue-i18n";
-import { useChatStore } from "@/store";
 
 const currentLanguage = navigator.language;
 export const i18n = createI18n({
@@ -13,6 +12,10 @@ export const i18n = createI18n({
         language: "Language",
         modalTitle: "System Settings",
         placeholder: "Message DeepSeek",
+        systemPrompt: "You are a helpful assistant.",
+        messagePopover: "Message is empty",
+        greeting: "Hi, I'm DeepSeek.",
+        notice: "AI-generated, for reference only",
       },
     },
     zh: {
@@ -20,7 +23,10 @@ export const i18n = createI18n({
       chat: {
         language: "语言",
         modalTitle: "系统设置",
-        placeholder: "给 DeepSeek 发送消息"
+        placeholder: "给 DeepSeek 发送消息",
+        systemPrompt: "你是一个有帮助的助手。",
+        messagePopover: "请输入你的问题",
+        greeting: "我是 DeepSeek，很高兴见到你！",
       },
     },
     zh_TW: {
