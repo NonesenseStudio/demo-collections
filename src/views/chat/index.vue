@@ -10,13 +10,29 @@ import {
 import { aiChat } from "@/services/api.ts";
 import { message as Message } from "ant-design-vue";
 import MarkdownIt from "markdown-it";
+import ToolBar from "@/views/chat/components/tool-bar.vue";
 
 const { t, locale } = useI18n();
 const chatStore = useChatStore();
 const open = ref<boolean>(false);
 const prompt = ref<string | null>(null);
-const conversations = ref<any[]>([]);
+const conversationRef = ref();
+const conversations = ref<any[]>([
+  {
+    role: "user",
+    content: "请简单介绍一下你自己",
+  },
+  {
+    role: "assistant",
+    content:
+      "\n\n大家好！我是一个由深度求索（DeepSeek）公司开发的智能助手DeepSeek-R1，旨在通过自然语言交互帮助用户解决问题、获取信息。我的能力包括：\n\n- **问答与知识检索**：覆盖科学、技术、文化等多领域知识（数据更新至2023年10月）\n- **学习辅助**：提供学科解答、编程指导、语言翻译等支持\n- **实用工具**：支持文件解析、数据分析、图像处理等任务\n- **多语言交互**：能使用中文、英文等多种语言沟通\n\n我通过持续学习优化服务质量，但可能存在局限性，请对关键信息二次核实。您可以随时提问，我会尽力提供准确、清晰的帮助！",
+    reasoning_content:
+      "好的，用户让我简单介绍一下自己。首先，我要确定用户的需求是什么。可能他们只是想了解我的功能和用途，或者是第一次使用类似的服务，想确认我能帮助他们做什么。\n\n接下来，我需要按照之前设定的结构来组织回答。开始要打招呼，然后说明身份和开发目的，接着列举我的能力，比如回答问题、信息检索、学习辅导等。同时，要强调实时性和数据限制到2023年10月，这样用户知道我的知识范围。\n\n还要保持语气友好和开放，鼓励用户提问，让他们感觉随时可以寻求帮助。需要注意避免技术术语，保持回答简洁明了，适合不同背景的用户理解。\n\n另外，用户可能潜在的需求是确认我的可靠性和范围，所以提到持续学习和改进，但也要明确我的限制，避免误导用户以为我能处理实时数据或超出能力范围的任务。\n\n最后检查是否有遗漏的关键点，比如多语言支持、实用工具等，这些都是我的功能亮点，应该包含进去。确保整个介绍流畅自然，没有冗长的部分，使用户快速了解我的能力。",
+  },
+]);
 const loading = ref<boolean>(false);
+const resetting = ref<boolean>(false);
+const showToBottom = ref(false);
 const md = MarkdownIt({
   html: true,
 });
@@ -94,6 +110,7 @@ function getContent(text: string) {
   }
   return jsonArr;
 }
+
 const pressEnter = (e) => {
   e.preventDefault();
   if (!prompt.value) {
@@ -105,23 +122,26 @@ const pressEnter = (e) => {
 };
 const sendMessage = () => {
   loading.value = true;
-  conversations.value.push({
-    role: "user",
-    content: prompt.value,
-  });
-  conversations.value.push({
-    role: "assistant",
-    content: "",
-    reasoning_content: "",
-    hideReasoning: false,
-    reasoning: true,
-  });
-  let answer = conversations.value[conversations.value.length - 1];
+  if (!resetting.value) {
+    conversations.value.push({
+      role: "user",
+      content: prompt.value,
+    });
+  }
   aiChat({
     model: currentModel.value.key,
-    prompt: prompt.value,
     systemPrompt: systemPrompt.value,
+    messages: conversations.value,
   }).then(async (response) => {
+    conversations.value.push({
+      role: "assistant",
+      content: "",
+      reasoning_content: "",
+      hideReasoning: false,
+      reasoning: true,
+      isFinish: false,
+    });
+    let answer = conversations.value[conversations.value.length - 1];
     prompt.value = null;
     const decoder = new TextDecoder("utf-8");
     const reader = response.body.getReader();
@@ -131,17 +151,45 @@ const sendMessage = () => {
       let jsonArr = getContent(chunk);
       jsonArr.forEach((json) => {
         if (json.choices.length) {
+          if (!json.choices[0].delta?.reasoning_content) {
+            answer.reasoning = false;
+          }
           answer.content += json.choices[0].delta?.content || "";
           answer.reasoning_content +=
             json.choices[0].delta?.reasoning_content || "";
         }
+        if (
+          conversationRef.value.offsetHeight -
+            conversationRef.value.scrollTop <=
+          conversationRef.value.scrollHeight - 50
+        ) {
+          toBottom();
+        }
       });
       ({ done, value } = await reader.read());
+      if (done) {
+        answer.isFinish = true;
+      }
     }
     loading.value = false;
+    resetting.value = false;
   });
 };
+const onReset = () => {
+  resetting.value = true;
+  conversations.value.splice(-1);
+  sendMessage();
+};
+const toBottom = () => {
+  conversationRef.value.scrollTop =
+    conversationRef.value.scrollHeight - conversationRef.value.offsetHeight;
+};
+const onScroll = (e: any) => {
+  showToBottom.value =
+    e.target.scrollTop + e.target.offsetHeight < e.target.scrollHeight - 50;
+};
 onMounted(() => {
+  toBottom();
   locale.value = chatStore.language;
 });
 </script>
@@ -183,7 +231,12 @@ onMounted(() => {
         {{ t("chat.greeting") }}
       </h1>
     </div>
-    <div class="chat-conversation" v-else>
+    <div
+      class="chat-conversation"
+      v-else
+      ref="conversationRef"
+      @scroll="onScroll"
+    >
       <a-space direction="vertical" style="width: 100%">
         <template v-for="item in conversations">
           <div v-if="item.role === 'user'" class="chat-conversation-user">
@@ -196,7 +249,7 @@ onMounted(() => {
               @click="item.hideReasoning = !item.hideReasoning"
               v-if="item.reasoning_content"
             >
-              思考中
+              {{ item.resoning ? "思考中" : "已深度思考" }}
               <DownOutlined v-if="item.hideReasoning" />
               <UpOutlined v-else />
             </a-button>
@@ -205,17 +258,29 @@ onMounted(() => {
               :class="{ hide: item.hideReasoning }"
               v-if="item.reasoning_content"
               v-html="md.render(item.reasoning_content)"
-            >
-            </div>
+            ></div>
             <div
               class="chat-conversation-content"
               v-html="md.render(item.content)"
             ></div>
+            <tool-bar
+              v-if="item.isFinish"
+              :content="item.content"
+              @reset="onReset"
+            />
           </div>
         </template>
       </a-space>
     </div>
     <div class="chat-input">
+      <a-button
+        shape="circle"
+        class="to-bottom"
+        @click="toBottom"
+        v-if="showToBottom"
+      >
+        <DownOutlined />
+      </a-button>
       <a-card
         style="width: 60%; border-radius: 24px"
         :body-style="{ padding: '10px' }"
@@ -301,6 +366,13 @@ onMounted(() => {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
+
+    .to-bottom {
+      position: absolute;
+      right: 20%;
+      top: -50%;
+    }
   }
 
   &-greeting {
@@ -311,6 +383,8 @@ onMounted(() => {
     width: 100%;
     padding: 10px 20%;
     overflow: auto;
+    box-sizing: border-box;
+    transition: all ease-out 0.5s;
 
     &-user {
       width: 100%;
@@ -341,16 +415,16 @@ onMounted(() => {
     }
 
     &-content {
-      padding: 10px 0;
+      padding: 10px 0 5px;
       border-radius: 10px;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     &-message {
       background: #cae1ff;
       padding: 10px;
       border-radius: 10px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       max-width: 70%;
     }
   }

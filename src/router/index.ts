@@ -116,7 +116,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/chat/index.vue"),
     meta: {
       title: "AI对话",
-      layout: "normal",
+      layout: "empty",
     },
   },
 ];

@@ -17,7 +17,7 @@ export const aiChat = async (params: any) => {
       model: params.model,
       messages: [
         { role: "system", content: params.systemPrompt },
-        { role: "user", content: params.prompt },
+        ...params.messages,
       ],
       stream: true,
     }),
