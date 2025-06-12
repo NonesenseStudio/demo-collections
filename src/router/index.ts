@@ -18,100 +18,100 @@ export const routes: RouteRecordRaw[] = [
   //     layout: "empty",
   //   },
   // },
+  // {
+  //   path: "/",
+  //   name: "Ant",
+  //   redirect: "/ant/dashboard",
+  //   component: () => import("@/views/index.vue"),
+  //   meta: {
+  //     title: "Ant Design Vue",
+  //     layout: "normal",
+  //   },
+  //   children: [
+  //     {
+  //       path: "",
+  //       name: "AntHome",
+  //       component: () => import("@/views/ant/dashboard/dashboard.vue"),
+  //       meta: {
+  //         title: "",
+  //         childrenLayout: "ant",
+  //       },
+  //       children: [
+  //         {
+  //           path: "404",
+  //           name: "Ant404",
+  //           component: () => import("@/views/error/404.vue"),
+  //           meta: {
+  //             title: "404",
+  //             layout: "ant",
+  //           },
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       path: "login",
+  //       name: "AntLogin",
+  //       component: () => import("@/views/ant/login/login.vue"),
+  //       meta: {
+  //         title: "",
+  //         childrenLayout: "empty",
+  //       },
+  //     },
+  //     ...ant,
+  //   ],
+  // },
+  // {
+  //   path: "/element",
+  //   name: "Element",
+  //   redirect: "/element/dashboard",
+  //   component: () => import("@/views/index.vue"),
+  //   meta: {
+  //     title: "Element Plus",
+  //     layout: "normal",
+  //   },
+  //   children: [
+  //     {
+  //       path: "",
+  //       name: "ElementHome",
+  //       component: () => import("@/views/element/dashboard/dashboard.vue"),
+  //       meta: {
+  //         title: "",
+  //         childrenLayout: "element",
+  //       },
+  //     },
+  //     {
+  //       path: "login",
+  //       name: "ElementLogin",
+  //       component: () => import("@/views/element/login/login.vue"),
+  //       meta: {
+  //         title: "",
+  //         childrenLayout: "empty",
+  //         show: false,
+  //       },
+  //     },
+  //     {
+  //       path: "404",
+  //       name: "Element404",
+  //       component: () => import("@/views/error/404.vue"),
+  //       meta: {
+  //         title: "404",
+  //         childrenLayout: "element",
+  //       },
+  //     },
+  //     ...element,
+  //   ],
+  // },
+  // {
+  //   path: "/visualization",
+  //   name: "Visualization",
+  //   component: () => import("@/views/visualization/index.vue"),
+  //   meta: {
+  //     title: "可视化大屏",
+  //     layout: "normal",
+  //   },
+  // },
   {
     path: "/",
-    name: "Ant",
-    redirect: "/ant/dashboard",
-    component: () => import("@/views/index.vue"),
-    meta: {
-      title: "Ant Design Vue",
-      layout: "normal",
-    },
-    children: [
-      {
-        path: "",
-        name: "AntHome",
-        component: () => import("@/views/ant/dashboard/dashboard.vue"),
-        meta: {
-          title: "",
-          childrenLayout: "ant",
-        },
-        children: [
-          {
-            path: "404",
-            name: "Ant404",
-            component: () => import("@/views/error/404.vue"),
-            meta: {
-              title: "404",
-              layout: "ant",
-            },
-          },
-        ],
-      },
-      {
-        path: "login",
-        name: "AntLogin",
-        component: () => import("@/views/ant/login/login.vue"),
-        meta: {
-          title: "",
-          childrenLayout: "empty",
-        },
-      },
-      ...ant,
-    ],
-  },
-  {
-    path: "/element",
-    name: "Element",
-    redirect: "/element/dashboard",
-    component: () => import("@/views/index.vue"),
-    meta: {
-      title: "Element Plus",
-      layout: "normal",
-    },
-    children: [
-      {
-        path: "",
-        name: "ElementHome",
-        component: () => import("@/views/element/dashboard/dashboard.vue"),
-        meta: {
-          title: "",
-          childrenLayout: "element",
-        },
-      },
-      {
-        path: "login",
-        name: "ElementLogin",
-        component: () => import("@/views/element/login/login.vue"),
-        meta: {
-          title: "",
-          childrenLayout: "empty",
-          show: false,
-        },
-      },
-      {
-        path: "404",
-        name: "Element404",
-        component: () => import("@/views/error/404.vue"),
-        meta: {
-          title: "404",
-          childrenLayout: "element",
-        },
-      },
-      ...element,
-    ],
-  },
-  {
-    path: "/visualization",
-    name: "Visualization",
-    component: () => import("@/views/visualization/index.vue"),
-    meta: {
-      title: "可视化大屏",
-      layout: "normal",
-    },
-  },
-  {
-    path: "/chat",
     name: "Chat",
     component: () => import("@/views/chat/index.vue"),
     meta: {
@@ -190,19 +190,19 @@ export async function setupRouter(app: App): Promise<void> {
     // if (!element.isLogin && to.path !== "/login" && to.path !== "/overview") {
     //   return { path: "/login" };
     // }
-    if (
-      !element.isLogin &&
-      to.path.startsWith("/element") &&
-      to.path !== "/element/login"
-    ) {
-      return { path: "/element/login" };
-    }
-    if (
-      !ant.isLogin &&
-      to.path.startsWith("/ant") &&
-      to.path !== "/ant/login"
-    ) {
-      return { path: "/ant/login" };
-    }
+    // if (
+    //   !element.isLogin &&
+    //   to.path.startsWith("/element") &&
+    //   to.path !== "/element/login"
+    // ) {
+    //   return { path: "/element/login" };
+    // }
+    // if (
+    //   !ant.isLogin &&
+    //   to.path.startsWith("/ant") &&
+    //   to.path !== "/ant/login"
+    // ) {
+    //   return { path: "/ant/login" };
+    // }
   });
 }

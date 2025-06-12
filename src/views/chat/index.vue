@@ -17,19 +17,7 @@ const chatStore = useChatStore();
 const open = ref<boolean>(false);
 const prompt = ref<string | null>(null);
 const conversationRef = ref();
-const conversations = ref<any[]>([
-  {
-    role: "user",
-    content: "请简单介绍一下你自己",
-  },
-  {
-    role: "assistant",
-    content:
-      "\n\n大家好！我是一个由深度求索（DeepSeek）公司开发的智能助手DeepSeek-R1，旨在通过自然语言交互帮助用户解决问题、获取信息。我的能力包括：\n\n- **问答与知识检索**：覆盖科学、技术、文化等多领域知识（数据更新至2023年10月）\n- **学习辅助**：提供学科解答、编程指导、语言翻译等支持\n- **实用工具**：支持文件解析、数据分析、图像处理等任务\n- **多语言交互**：能使用中文、英文等多种语言沟通\n\n我通过持续学习优化服务质量，但可能存在局限性，请对关键信息二次核实。您可以随时提问，我会尽力提供准确、清晰的帮助！",
-    reasoning_content:
-      "好的，用户让我简单介绍一下自己。首先，我要确定用户的需求是什么。可能他们只是想了解我的功能和用途，或者是第一次使用类似的服务，想确认我能帮助他们做什么。\n\n接下来，我需要按照之前设定的结构来组织回答。开始要打招呼，然后说明身份和开发目的，接着列举我的能力，比如回答问题、信息检索、学习辅导等。同时，要强调实时性和数据限制到2023年10月，这样用户知道我的知识范围。\n\n还要保持语气友好和开放，鼓励用户提问，让他们感觉随时可以寻求帮助。需要注意避免技术术语，保持回答简洁明了，适合不同背景的用户理解。\n\n另外，用户可能潜在的需求是确认我的可靠性和范围，所以提到持续学习和改进，但也要明确我的限制，避免误导用户以为我能处理实时数据或超出能力范围的任务。\n\n最后检查是否有遗漏的关键点，比如多语言支持、实用工具等，这些都是我的功能亮点，应该包含进去。确保整个介绍流畅自然，没有冗长的部分，使用户快速了解我的能力。",
-  },
-]);
+const conversations = ref<any[]>([]);
 const loading = ref<boolean>(false);
 const resetting = ref<boolean>(false);
 const showToBottom = ref(false);
@@ -189,7 +177,6 @@ const onScroll = (e: any) => {
     e.target.scrollTop + e.target.offsetHeight < e.target.scrollHeight - 50;
 };
 onMounted(() => {
-  toBottom();
   locale.value = chatStore.language;
 });
 </script>
